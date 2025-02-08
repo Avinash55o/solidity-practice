@@ -18,19 +18,20 @@ contract avi is IERC20 {
     string public name = "avi";
     string public symbol = "MTK";
     uint8 public decimals = 18;
+    uint256 public  _totalSupply;
 
     mapping(address => uint256) private _balances;
     mapping(address => mapping(address => uint256)) private _allowances;
 
     constructor(uint256 initialSupply) {
-        uint256 _totalSupply = initialSupply * (10 ** decimals);
+        _totalSupply = initialSupply * (10 ** decimals);
     require(_totalSupply > 0, "Initial supply must be greater than zero.");
     _balances[msg.sender] = _totalSupply; // Assign all tokens to the deployer
     emit Transfer(address(0), msg.sender, totalSupply());
     }
 
     function totalSupply() public view override returns (uint256) {
-        return totalSupply;
+        return _totalSupply;
     }
 
     function balanceOf(address account) public view override returns (uint256) {
